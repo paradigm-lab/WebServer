@@ -1,0 +1,58 @@
+server:
+  port: 8082
+
+spring:
+  profiles:
+    active: qa
+
+---
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: boot
+    url: jdbc:postgresql://localhost:5432/dcbapp
+    username: spring
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+welcome:
+  message: Welcome to kwawingu
+
+---
+spring:
+  profiles: qa
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: boot
+    url: jdbc:postgresql://localhost:5432/dcbapp-qa
+    username: spring
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+welcome:
+  message: Welcome to kwawingu
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env, beans"
+
+---
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    password: boot
+    url: jdbc:postgresql://localhost:5432/dcbapp-prod
+    username: spring
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+welcome:
+  message: Welcome to kwawingu
