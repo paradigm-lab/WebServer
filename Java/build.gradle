@@ -2,7 +2,10 @@ plugins {
 	id 'java'
 }
 
-group = 'com.webserver'
+apply plugin: 'application'
+mainClassName = "com.webserver.Main"
+
+group = 'Main'
 version = '0.0.1'
 sourceCompatibility = '17'
 
@@ -11,7 +14,13 @@ repositories {
 }
 
 dependencies {
+	testImplementation 'org.junit.jupiter:junit-jupiter-api'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
 
+run {
+	standardInput = System.in
+	standardOutput = System.out
 }
 
 test {
