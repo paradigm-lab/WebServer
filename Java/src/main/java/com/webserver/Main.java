@@ -1,5 +1,7 @@
 package com.webserver;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -16,6 +18,23 @@ public class Main {
                     System.out.println("Debug: got new message " + client.toString());
 
                     // Read the request - listen to the message
+                    InputStreamReader inputStreamReader = new InputStreamReader(client.getInputStream());
+
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                    // String's in java they can't be edited in the fly, but we can append things to the string which is called StringBuilder.
+                    StringBuilder requestBuilder = new StringBuilder();
+
+                    String line;  // Temp variable called line that holds one line at a time of our message
+                    line = bufferedReader.readLine();
+
+                    while (!(line.isBlank())) {
+                        requestBuilder.append(line + "\r\n");
+                        line = bufferedReader.readLine();
+                    }
+
+                    System.out.println("----REQUEST----");
+                    System.out.println(requestBuilder);
 
                     // Decide how we'd like to respond
 
