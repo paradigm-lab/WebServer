@@ -41,6 +41,12 @@ public class Main {
 
                     // Decide how we'd like to respond
 
+                        // Get the first line of the request
+                        // Get the second thing "resource" from the first line (Separated by spaces)
+                        // Compare the "resource" to our list of things
+                        // Send back the appropriate thing based on resources
+                    
+
                     // Just send back a simple "Hello World"
                     /*
                     OutputStream clientOutput = client.getOutputStream();
