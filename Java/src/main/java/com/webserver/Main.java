@@ -42,12 +42,26 @@ public class Main {
                     // Decide how we'd like to respond
 
                     // Just send back a simple "Hello World"
+                    /*
                     OutputStream clientOutput = client.getOutputStream();
                     clientOutput.write(("HTTP/1.1 200 OK \r\n").getBytes());
                     clientOutput.write(("\r\n").getBytes());
                     clientOutput.write(("THIS IS A SIMPLE WEB SERVER").getBytes());
                     clientOutput.flush();
+                    */
+
                     // Send back an image?
+
+                    // Load the image from the fileSystem
+                    // Turn the image into bytes?
+                    // Set the contentType?
+
+                    OutputStream clientOutput = client.getOutputStream();
+                    clientOutput.write(("HTTP/1.1 200 OK \r\n").getBytes());
+                    clientOutput.write(("\r\n").getBytes());
+                    clientOutput.write(("THIS IS A SIMPLE WEB SERVER").getBytes());
+                    clientOutput.flush();
+
 
                     // Change response based on route?
 
