@@ -1,11 +1,11 @@
 package com.webserver;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 
 public class Main {
     public static void main(String[] args) throws Exception{
@@ -53,13 +53,15 @@ public class Main {
                     // Send back an image?
 
                     // Load the image from the fileSystem
+                    FileInputStream image = new FileInputStream("src/main/resources/fav.jpg");
+                    System.out.println(image.toString());
                     // Turn the image into bytes?
                     // Set the contentType?
 
                     OutputStream clientOutput = client.getOutputStream();
                     clientOutput.write(("HTTP/1.1 200 OK \r\n").getBytes());
                     clientOutput.write(("\r\n").getBytes());
-                    clientOutput.write(("THIS IS A SIMPLE WEB SERVER").getBytes());
+                    clientOutput.write(image.readAllBytes());
                     clientOutput.flush();
 
 
