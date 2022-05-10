@@ -31,7 +31,7 @@ public class Main {
                     String line;  // Temp variable called line that holds one line at a time of our message
                     line = bufferedReader.readLine();
 
-                    while (!(line.isBlank())) {
+                    while (!line.isBlank()) {
                         requestBuilder.append(line + "\r\n");
                         line = bufferedReader.readLine();
                     }
@@ -48,35 +48,41 @@ public class Main {
 
                     // Get the second thing "resource" from the first line (Separated by spaces)
                     String resource = firstName.split(" ")[1];
-                    // System.out.println(resource);
+                    System.out.println(resource);
 
                     // Compare the "resource" to our list of things
+                    if (resource.equals("/image")) {
+                        // Send back an image?
+
+                        // Load the image from the fileSystem
+                        FileInputStream image = new FileInputStream("src/main/resources/fav.jpg");
+                        // System.out.println(image.toString());
+                        // Turn the image into bytes?
+                        // Set the contentType?
+
+                        OutputStream clientOutput = client.getOutputStream();
+                        clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
+                        clientOutput.write(("\r\n").getBytes());
+                        clientOutput.write(image.readAllBytes());
+                        clientOutput.flush();
+
+                    } else if (resource.equals("/hello")) {
+                        // Just send back a simple "THIS IS A SIMPLE WEB SERVER"
+                        OutputStream clientOutput = client.getOutputStream();
+                        clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
+                        clientOutput.write(("\r\n").getBytes());
+                        clientOutput.write(("THIS IS A SIMPLE WEB SERVER").getBytes());
+                        clientOutput.flush();
+                    } else {
+                        // Just send back a simple "THIS IS A SIMPLE WEB SERVER"
+                        OutputStream clientOutput = client.getOutputStream();
+                        clientOutput.write(("HTTP/1.1 200 OK \r\n").getBytes());
+                        clientOutput.write(("\r\n").getBytes());
+                        clientOutput.write(("What a you looking for?").getBytes());
+                        clientOutput.flush();
+                    }
+                    System.out.println("Out and gone");
                     // Send back the appropriate thing based on resources
-
-
-                    // Just send back a simple "Hello World"
-                    /*
-                    OutputStream clientOutput = client.getOutputStream();
-                    clientOutput.write(("HTTP/1.1 200 OK \r\n").getBytes());
-                    clientOutput.write(("\r\n").getBytes());
-                    clientOutput.write(("THIS IS A SIMPLE WEB SERVER").getBytes());
-                    clientOutput.flush();
-                    */
-
-                    // Send back an image?
-
-                    // Load the image from the fileSystem
-                    FileInputStream image = new FileInputStream("src/main/resources/fav.jpg");
-                    // System.out.println(image.toString());
-                    // Turn the image into bytes?
-                    // Set the contentType?
-
-                    OutputStream clientOutput = client.getOutputStream();
-                    clientOutput.write(("HTTP/1.1 200 OK \r\n").getBytes());
-                    clientOutput.write(("\r\n").getBytes());
-                    clientOutput.write(image.readAllBytes());
-                    clientOutput.flush();
-
 
                     // Change response based on route?
 
