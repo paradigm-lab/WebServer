@@ -37,15 +37,22 @@ public class Main {
                     }
 
                     System.out.println("----REQUEST----");
-                    System.out.println(requestBuilder);
+                    // System.out.println(requestBuilder);
 
                     // Decide how we'd like to respond
 
-                        // Get the first line of the request
-                        // Get the second thing "resource" from the first line (Separated by spaces)
-                        // Compare the "resource" to our list of things
-                        // Send back the appropriate thing based on resources
-                    
+
+                    // Get the first line of the request
+                    String firstName = requestBuilder.toString().split("\n")[0];
+                    // System.out.println(firstName);
+
+                    // Get the second thing "resource" from the first line (Separated by spaces)
+                    String resource = firstName.split(" ")[1];
+                    // System.out.println(resource);
+
+                    // Compare the "resource" to our list of things
+                    // Send back the appropriate thing based on resources
+
 
                     // Just send back a simple "Hello World"
                     /*
@@ -60,7 +67,7 @@ public class Main {
 
                     // Load the image from the fileSystem
                     FileInputStream image = new FileInputStream("src/main/resources/fav.jpg");
-                    System.out.println(image.toString());
+                    // System.out.println(image.toString());
                     // Turn the image into bytes?
                     // Set the contentType?
 
