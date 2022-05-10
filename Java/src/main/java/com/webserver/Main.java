@@ -2,8 +2,10 @@ package com.webserver;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class Main {
     public static void main(String[] args) throws Exception{
@@ -22,6 +24,7 @@ public class Main {
 
                     BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
+                    // Read the first request from the client
                     // String's in java they can't be edited in the fly, but we can append things to the string which is called StringBuilder.
                     StringBuilder requestBuilder = new StringBuilder();
 
@@ -39,7 +42,11 @@ public class Main {
                     // Decide how we'd like to respond
 
                     // Just send back a simple "Hello World"
-
+                    OutputStream clientOutput = client.getOutputStream();
+                    clientOutput.write(("HTTP/1.1 200 OK \r\n").getBytes());
+                    clientOutput.write(("\r\n").getBytes());
+                    clientOutput.write(("THIS IS A SIMPLE WEB SERVER").getBytes());
+                    clientOutput.flush();
                     // Send back an image?
 
                     // Change response based on route?
@@ -47,6 +54,7 @@ public class Main {
                     // Send a response - send our reply
 
                     // Get ready for the next message
+                    client.close();
                 }
             }
         }
