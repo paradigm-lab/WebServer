@@ -12,8 +12,9 @@ public class Main {
         // Start receiving messages - ready to receive messages!
         try (ServerSocket serverSocket = new ServerSocket(8080)) {
             System.out.println("Server started. \nListening for messages.");
-
+            int a = 0;
             while (true) {
+                a++;
                 // Handle a new incoming message
                 try(Socket client = serverSocket.accept()) {
                     // Client <------- messages queued up in it!!
@@ -28,7 +29,7 @@ public class Main {
                     // String's in java they can't be edited in the fly, but we can append things to the string which is called StringBuilder.
                     StringBuilder requestBuilder = new StringBuilder();
 
-                    String line;  // Temp variable called line that holds one line at a time of our message
+                    String line = "";  // Temp variable called line that holds one line at a time of our message
                     line = bufferedReader.readLine();
 
                     while (!line.isBlank()) {
@@ -37,7 +38,7 @@ public class Main {
                     }
 
                     System.out.println("----REQUEST----");
-                    // System.out.println(requestBuilder);
+                    System.out.println(requestBuilder);
 
                     // Decide how we'd like to respond
 
@@ -66,7 +67,18 @@ public class Main {
                         clientOutput.write(image.readAllBytes());
                         clientOutput.flush();
 
-                    } else if (resource.equals("/hello")) {
+                    } else if (resource.equals("/google")) {
+			// Send back html page 
+			// Load the html file from the filesystem
+                        FileInputStream page = new FileInputStream("src/main/resources/search.html");
+
+                        OutputStream clientOutput = client.getOutputStream();
+                        clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
+                        clientOutput.write(("\r\n").getBytes());
+                        clientOutput.write(page.readAllBytes());
+                        clientOutput.flush();
+
+		    } else if (resource.equals("/hello")) {
                         // Just send back a simple "THIS IS A SIMPLE WEB SERVER"
                         OutputStream clientOutput = client.getOutputStream();
                         clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
@@ -81,7 +93,7 @@ public class Main {
                         clientOutput.write(("What a you looking for?").getBytes());
                         clientOutput.flush();
                     }
-                    System.out.println("Out and gone");
+                    System.out.println("Counter: " + a);
                     // Send back the appropriate thing based on resources
 
                     // Change response based on route?
